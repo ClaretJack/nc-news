@@ -20,16 +20,17 @@ function Articles() {
             {allArticles.map((article) => {
                 const date = new Date(article.created_at)
                 return (
-                    <ArticleCard
-                        date={date}
-                        article_id={article.article_id}
-                        author={article.author}
-                        votes={article.votes}
-                        title={article.title}
-                        article_img_url={article.article_img_url}
-                        topics={article.topics}
-                        key={article.article_id}
-                    />
+                    <Link to={`/articles/${article.article_id}`} key={article.article_id}>
+                        <ArticleCard
+                            date={date}
+                            article_id={article.article_id}
+                            author={article.author}
+                            votes={article.votes}
+                            title={article.title}
+                            article_img_url={article.article_img_url}
+                            topics={article.topics}
+                        />
+                    </Link>
                 )
             }
                 
