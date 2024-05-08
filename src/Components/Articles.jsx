@@ -7,7 +7,7 @@ function Articles() {
     const [allArticles, setAllArticles] = useState([])
 
     useEffect(() => {
-        fetchAllArticles().then(({ article }) => {
+        fetchAllArticles().then((article) => {
             setAllArticles(article) 
             
         })

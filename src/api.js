@@ -1,23 +1,29 @@
-export function fetchAllArticles() {
-  return fetch(
-    `https://backend-project-nc-news-k5t8.onrender.com/api/articles`
-  ).then((res) => {
-    return res.json();
-  });
-}
+import axios from "axios";
 
-export function fetchArticleByID(article_id) {
-  return fetch(
-    `https://backend-project-nc-news-k5t8.onrender.com/api/articles/${article_id}`
-  ).then((res) => {
-    return res.json();
-  });
-}
+export const fetchAllArticles = () => {
+  return axios
+    .get(`https://backend-project-nc-news-k5t8.onrender.com/api/articles`)
+    .then(({ data: { article } }) => {
+      return article;
+    });
+};
 
-export function fetchArticleComments(article_id) {
-  return fetch(
-    `https://backend-project-nc-news-k5t8.onrender.com/api/articles/${article_id}/comments`
-  ).then((res) => {
-    return res.json();
-  });
-}
+export const fetchArticleByID = (article_id) => {
+  return axios
+    .get(
+      `https://backend-project-nc-news-k5t8.onrender.com/api/articles/${article_id}`
+    )
+    .then(({ data }) => {
+      return data;
+    });
+};
+
+export const fetchArticleComments = (article_id) => {
+  return axios
+    .get(
+      `https://backend-project-nc-news-k5t8.onrender.com/api/articles/${article_id}/comments`
+    )
+    .then(({ data: { comments } }) => {
+      return comments;
+    });
+};
