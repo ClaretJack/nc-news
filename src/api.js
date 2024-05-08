@@ -27,3 +27,14 @@ export const fetchArticleComments = (article_id) => {
       return comments;
     });
 };
+
+export const patchArticleVotes = (article_id, votes) => {
+  return axios
+    .patch(
+      `https://backend-project-nc-news-k5t8.onrender.com/api/articles/${article_id}`,
+      { inc_votes: votes }
+    )
+    .catch((err) => {
+      return Promise.reject({ status: err.code, msg: err.message });
+    });
+};
