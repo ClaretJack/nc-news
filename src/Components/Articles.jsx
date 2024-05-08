@@ -16,11 +16,11 @@ function Articles() {
     
 
     return (
-        <ul>
+        <ul className='articleCard-container'>
             {allArticles.map((article) => {
                 const date = new Date(article.created_at)
                 return (
-                    <Link to={`/articles/${article.article_id}`} key={article.article_id}>
+                    <Link to={`/articles/${article.article_id}`} key={article.article_id} className='articleCardLinks'>
                         <ArticleCard
                             date={date}
                             article_id={article.article_id}
@@ -28,7 +28,7 @@ function Articles() {
                             votes={article.votes}
                             title={article.title}
                             article_img_url={article.article_img_url}
-                            topics={article.topics}
+                            topic={article.topic}
                         />
                     </Link>
                 )

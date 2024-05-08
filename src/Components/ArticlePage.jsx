@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { fetchArticleByID } from '../api'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 
@@ -24,7 +25,9 @@ function ArticlePage() {
             <div className='article-description'>
                 <p>{article.body}</p>
             </div>
-            <button>See Comments</button>
+            <Link to={`/articles/${article_id}/comments`}>
+                <button>See Comments</button>
+            </Link>
             <div className='article-votes'>
                 <button>Vote up</button>
                 <p>{article.votes}</p>
