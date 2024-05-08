@@ -8,7 +8,7 @@ function ArticleComments() {
     const [comments, setComments] = useState([])
     const {article_id} = useParams()
     useEffect(() => {
-        fetchArticleComments(article_id).then(({ comments }) => {
+        fetchArticleComments(article_id).then((comments) => {
             setComments(comments)
         })
     }), []
