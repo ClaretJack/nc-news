@@ -20,7 +20,6 @@ function ArticlePage() {
   
 
     const handleVotes = (vote) => {
-        userVote += vote
         patchArticleVotes(article_id, vote)
             .then(() => { 
                 setVoteChange((currVoteChange) => currVoteChange + vote)
