@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { fetchArticleComments, fetchArticleByID } from '../api'
+
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Comment from './Comment'
 import PostComment from './PostComment'
 
-
 function ArticleComments() {
     const [comments, setComments] = useState([])
     const [title, setTitle] = useState('')
     const [isPostActive, setIsPostActive] = useState(false)
-    const {article_id} = useParams()
+    const { article_id } = useParams()
+   
+
     useEffect(() => {
         fetchArticleComments(article_id).then((comments) => {
             setComments(comments)
@@ -23,6 +25,7 @@ function ArticleComments() {
         })
     }, [])
     
+
     function handlePost() {
         setIsPostActive((prev) => {
             return !prev;
@@ -40,7 +43,7 @@ function ArticleComments() {
             <h3>Comments:</h3>
                 <ul>
                 {comments.map((comment) => {
-                   console.log(comment)
+
                         const date = new Date(comment.created_at)
                         return (
                                 <li key={comment.comment_id} >
@@ -49,7 +52,9 @@ function ArticleComments() {
                                         body={comment.body}
                                         author={comment.author}
                                         comment_id={comment.comment_id}
-                                    />
+                                        comment={comment}
+                                />
+                                
                                 </li>
                             )
                     })}
