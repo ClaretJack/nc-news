@@ -1,11 +1,20 @@
 import axios from "axios";
 
-export const fetchAllArticles = () => {
+export const fetchAllArticles = (params) => {
   return axios
-    .get(`https://backend-project-nc-news-k5t8.onrender.com/api/articles`)
+    .get(
+      `https://backend-project-nc-news-k5t8.onrender.com/api/articles`,
+      params
+    )
     .then(({ data: { article } }) => {
       return article;
     });
+};
+
+export const fetchTopics = () => {
+  return axios.get(
+    `https://backend-project-nc-news-k5t8.onrender.com/api/topics`
+  );
 };
 
 export const fetchArticleByID = (article_id) => {
