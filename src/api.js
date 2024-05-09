@@ -45,3 +45,9 @@ export const postArticleComment = (article_id, username, body) => {
     { username: username, body: body }
   );
 };
+
+export const deleteArticleComment = (comment_id) => {
+  return axios.delete(
+    `https://backend-project-nc-news-k5t8.onrender.com/api/comments/${comment_id}`
+  );
+};
