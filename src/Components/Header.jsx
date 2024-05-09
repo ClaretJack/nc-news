@@ -21,15 +21,15 @@ function Header({}) {
         
         <header className="header">
             <img src={Logo} onClick={handleHome} className="header-logo" />
-            <nav>
-                <Link to={`/articles`} >
-                <p>ALL</p>
+            <nav className="nav-bar">
+                <Link to={`/articles`} className="navLinks">
+                <p className="navPara">ALL</p>
                 </Link>
                 {topics.map((topic) => {
                     
                     return (
-                        <Link to={`/topics/${topic.slug}/articles`} key={topic.slug}>
-                            <p>{topic.slug.toUpperCase()}.</p>
+                        <Link to={`/topics/${topic.slug}/articles`} key={topic.slug} className="navLinks">
+                            <p className="navPara">{topic.slug.toUpperCase()}</p>
                         </Link>
                     )
                 })}

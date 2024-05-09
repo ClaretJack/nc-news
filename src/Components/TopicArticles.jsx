@@ -20,7 +20,7 @@ function TopicArticles() {
     })
 
     return (<>
-        <h2>{slug}</h2>
+        <h2 className='topic-slug'>{slug}</h2>
 
         <ul className='articleCard-container'>
             {topicArticles.map((article) => {
