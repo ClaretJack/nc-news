@@ -8,23 +8,28 @@ import { Link } from 'react-router-dom'
 function ArticlePage() {
     const [article, setArticle] = useState([])
     const [voteChange, setVoteChange] = useState(0)
-    const {article_id} = useParams()
+    const { article_id } = useParams()
+    
 
     useEffect(() => {
         fetchArticleByID(article_id).then(({ article }) => {
             setArticle(article) 
-            
         })
     }, [])
 
+  
+
     const handleVotes = (vote) => {
+        userVote += vote
         patchArticleVotes(article_id, vote)
             .then(() => { 
                 setVoteChange((currVoteChange) => currVoteChange + vote)
         }).catch(() => {
             alert('Error, Vote not counted')
         })
-        }
+    }
+    
+    
     
 
 
@@ -40,7 +45,7 @@ function ArticlePage() {
                 <button>See Comments</button>
             </Link>
             <div className='article-votes'>
-                <button disabled={voteChange===1} onClick={() => handleVotes(1)}>Vote up</button>
+                <button disabled={voteChange ===1 } onClick={() => handleVotes(1)}>Vote up</button>
                 {article.votes + voteChange}
                 <button disabled={voteChange === -1} onClick={() => handleVotes(-1)}>Vote Down</button>
                 

@@ -38,3 +38,10 @@ export const patchArticleVotes = (article_id, votes) => {
       return Promise.reject({ status: err.code, msg: err.message });
     });
 };
+
+export const postArticleComment = (article_id, username, body) => {
+  return axios.post(
+    `https://backend-project-nc-news-k5t8.onrender.com/api/articles/${article_id}/comments`,
+    { username: username, body: body }
+  );
+};
