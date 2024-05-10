@@ -9,9 +9,9 @@ import ErrorPage from './ErrorPage'
 
 
 function ArticlePage() {
-    const [article, setArticle] = useState([])
+    const [article, setArticle] = useState({})
     const [voteChange, setVoteChange] = useState(0)
-    const [articleExist, setArticleExist] = useState(null)
+    const [errorState, setErrorState] = useState(null)
     const { article_id } = useParams()
     
     
@@ -20,24 +20,38 @@ function ArticlePage() {
         fetchArticleByID(article_id).then(({ article }) => {
             setArticle(article) 
         }).catch((err) => {
-            setArticleExist(err)
+            setErrorState(err)
         })
     }, [])
 
     
 
-    const handleVotes = (vote) => {
+    const handleVoteChange = (vote) => {
         patchArticleVotes(article_id, vote)
-            .then(() => { 
-                setVoteChange((currVoteChange) => currVoteChange + vote)
+            .then((res) => { 
+                if (res.status !== 200) {
+                    throw error
+                }
+                setArticle((prevState) => ({ ...prevState, votes: res.data.article.votes }))
+                setVoteChange(voteChange + vote)
         }).catch(() => {
             alert('Error, Vote not counted')
         })
     }
-    
-    if (articleExist) {
-        return <ErrorPage message={articleExist.message} />
+
+
+
+    if (errorState) {
+        return <ErrorPage message={errorState.message} />
     }
+
+    if (Object.keys(article).length === 0) {
+        return (
+            <div><p>.........</p></div>
+        )
+    }
+
+
 
     return (
         <div className='article-container'> 
@@ -51,9 +65,9 @@ function ArticlePage() {
                 <button >See Comments</button>
             </Link>
             <div className='article-votes'>
-                <button disabled={voteChange === 1} onClick={() => handleVotes(1)} className='articlePage-voteUp'>/\</button>
-                <div className='articlePageVoteCount'>{article.votes + voteChange}</div>
-                <button disabled={voteChange === -1} onClick={() => handleVotes(-1)} className='articlePage-voteDown'>\/</button>
+                <button disabled={voteChange === 1} onClick={() => handleVoteChange(1)} className='articlePage-voteUp'>/\</button>
+                <div className='articlePageVoteCount'>{article.votes}</div>
+                <button disabled={voteChange === -1} onClick={() => handleVoteChange(-1)} className='articlePage-voteDown'>\/</button>
                 
             </div>
            
