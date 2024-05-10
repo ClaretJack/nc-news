@@ -14,7 +14,7 @@ function Header({}) {
     })
     
     function handleHome() {
-        navigate('/')
+        navigate('')
     }
 
     return (
@@ -28,7 +28,7 @@ function Header({}) {
                 {topics.map((topic) => {
                     
                     return (
-                        <Link to={`/topics/${topic.slug}/articles`} key={topic.slug} className="navLinks">
+                        <Link to={`/articles/${topic.slug}`} key={topic.slug} className="navLinks">
                             <p className="navPara">{topic.slug.toUpperCase()}</p>
                         </Link>
                     )
