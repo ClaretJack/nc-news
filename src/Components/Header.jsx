@@ -11,7 +11,7 @@ function Header({}) {
         fetchTopics().then(({ data: {topics} }) => {
             setTopics(topics)
         })
-    })
+    },[])
     
     function handleHome() {
         navigate('')
