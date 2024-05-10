@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { fetchArticleByID, patchArticleVotes } from '../api'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import ErrorPage from './ErrorPage'
 
 
 
@@ -10,16 +11,20 @@ import { Link } from 'react-router-dom'
 function ArticlePage() {
     const [article, setArticle] = useState([])
     const [voteChange, setVoteChange] = useState(0)
+    const [articleExist, setArticleExist] = useState(null)
     const { article_id } = useParams()
+    
     
 
     useEffect(() => {
         fetchArticleByID(article_id).then(({ article }) => {
             setArticle(article) 
+        }).catch((err) => {
+            setArticleExist(err)
         })
     }, [])
 
-  
+    
 
     const handleVotes = (vote) => {
         patchArticleVotes(article_id, vote)
@@ -30,9 +35,9 @@ function ArticlePage() {
         })
     }
     
-    
-    
-
+    if (articleExist) {
+        return <ErrorPage message={articleExist.message} />
+    }
 
     return (
         <div className='article-container'> 
