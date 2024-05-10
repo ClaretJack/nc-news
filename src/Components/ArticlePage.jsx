@@ -42,7 +42,7 @@ function ArticlePage() {
             <div className='articlePage-description'>
                 <p>{article.body}</p>
             </div>
-            <Link to={`/articles/${article_id}/comments`} className='articlePage-comments-button'>
+            <Link to={`/article/${article_id}/comments`} className='articlePage-comments-button'>
                 <button >See Comments</button>
             </Link>
             <div className='article-votes'>

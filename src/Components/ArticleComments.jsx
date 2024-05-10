@@ -35,7 +35,7 @@ function ArticleComments() {
     return (
         <div>
 
-            <h2><Link to={`/articles/${article_id}`}>
+            <h2><Link to={`/article/${article_id}`}>
                 {title}
             </Link></h2> 
             {!isPostActive && (<button onClick={handlePost}>Post Comment</button>)}
