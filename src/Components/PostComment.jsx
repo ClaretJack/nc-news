@@ -24,6 +24,7 @@ function PostComment({setComments,setIsPostActive}) {
         postArticleComment(article_id, user, commentInput).then(({ data }) => {
         setComments((comments) => [data, ...comments])
         }).then(() => {
+            location.reload()
             alert("Comment was successfully posted")
         })
         }
@@ -32,15 +33,17 @@ function PostComment({setComments,setIsPostActive}) {
         <div>
             <h2>Write your comment below</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text"
+                <textarea type="text"
                     placeholder="Please write your comment here..."
                     value={commentInput}
                     required={true}
-                    onChange={handleChange}>
+                    onChange={handleChange}
+                    className="post-comment-message"
+                >
                     
-                    </input>
-                <button type="submit">Post</button>
-                <button type="cancel" onClick={handleCancel}>Cancel</button>
+                    </textarea>
+                <button type="submit" className="comment-submit-button">✅</button>
+                <button type="cancel" onClick={handleCancel} className="comment-cancel-button">❌</button>
             </form>
         </div>
     )

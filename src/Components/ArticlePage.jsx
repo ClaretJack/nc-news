@@ -1,28 +1,36 @@
 import { useState, useEffect } from 'react'
-import { fetchArticleByID, patchArticleVotes } from '../api'
+import { fetchArticleByID, patchArticleVotes, fetchUserByUsername } from '../api'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import ErrorPage from './ErrorPage'
-
-
-
-
+import LoadingIcon from '../assets/loading-icon.png'
 
 function ArticlePage() {
     const [article, setArticle] = useState({})
+    const [user, setUser] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     const [voteChange, setVoteChange] = useState(0)
     const [errorState, setErrorState] = useState(null)
     const { article_id } = useParams()
     
-    
-
-    useEffect(() => {
+   async function fetchArticlesInfo() {
         fetchArticleByID(article_id).then(({ article }) => {
             setArticle(article) 
         }).catch((err) => {
             setErrorState(err)
         })
+        setTimeout(() => {
+            setIsLoading(false);
+          }, 1000);
+    }
+
+
+
+    
+    useEffect(() => {
+        fetchArticlesInfo()
     }, [])
+        
 
     
 
@@ -45,9 +53,12 @@ function ArticlePage() {
         return <ErrorPage message={errorState.message} />
     }
 
-    if (Object.keys(article).length === 0) {
+    if (isLoading) {
         return (
-            <div><p>.........</p></div>
+            <div className='loadingScreen'>
+                <img src={LoadingIcon} alt="loading screen" className='loading-icon'/>
+                <p>Please wait whilst we get your article</p>
+            </div>
         )
     }
 
@@ -56,7 +67,8 @@ function ArticlePage() {
     return (
         <div className='article-container'> 
             <h1 className='articlePage-title'>{article.title}</h1>
-            <img src={article.article_img_url} className='articlePage-img'/>
+            <img src={article.article_img_url} className='articlePage-img' />
+            {/* <img src={user.avatar_url} /> */}
             <p className='articlePage-author'>{article.author}</p>
             <div className='articlePage-description'>
                 <p>{article.body}</p>
