@@ -37,6 +37,17 @@ export const fetchArticleComments = (article_id) => {
     });
 };
 
+export const fetchUserByUsername = (username) => {
+  return axios
+    .get(
+      `https://backend-project-nc-news-k5t8.onrender.com/api/users/${username}`
+    )
+    .then(({ data: { user } }) => {
+      console.log(user);
+      return user;
+    });
+};
+
 export const patchArticleVotes = (article_id, votes) => {
   return axios
     .patch(

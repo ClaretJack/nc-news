@@ -33,20 +33,21 @@ function ArticleComments() {
     }
     
     return (
-        <div>
+        <div
+        className='comments-page'>
 
-            <h2><Link to={`/article/${article_id}`}>
+            <h2><Link to={`/article/${article_id}`} className='commentPageTitle'>
                 {title}
             </Link></h2> 
             {!isPostActive && (<button onClick={handlePost}>Post Comment</button>)}
             {isPostActive && (<PostComment setComments={setComments} setIsPostActive={setIsPostActive} />)}
-            <h3>Comments:</h3>
-                <ul>
+            <h3>Comments</h3>
+                <ul className='commentList'>
                 {comments.map((comment) => {
 
                         const date = new Date(comment.created_at)
                         return (
-                                <li key={comment.comment_id} >
+                                <li key={comment.comment_id} className='comment_container'>
                                     <Comment
                                         date={date.toLocaleDateString('en-GB')}
                                         body={comment.body}
@@ -58,7 +59,7 @@ function ArticleComments() {
                                 </li>
                             )
                     })}
-                </ul>
+                </ul> 
         </div>
     )
 }

@@ -7,18 +7,28 @@ function Comment({ date, author, body, comment }) {
     const [isDeleted, setIsDeleted] = useState(false)
     const { user } = useContext(UserContext);
 
-    function handleDelete() {
+    // function handleDelete() {
+    //     setIsDeleted(true)
+    //     deleteArticleComment(comment.comment_id)
+    //     alert('Comment Deleted Succesfully')
+    //   }
+
+    const deleteComment = async () => {
+        await deleteArticleComment(comment.comment_id)
         setIsDeleted(true)
-        deleteArticleComment(comment.comment_id)
-        alert('Comment Deleted Succesfully')
-      }
+    }
+
+    function handleDelete() {
+        setIsDeleted(true);
+        deleteComment();
+    }
     return (<>
         {!isDeleted &&
             <div>
                 <p>{body}</p>
                 <p>From: {author}</p>
                 <p>{date}</p>
-                {user === comment.author && (<button onClick={() => handleDelete()}>Delete</button>)}
+                {user === comment.author && (<button onClick={() => handleDelete()}>🗑️</button>)}
             </div>
         }
         </>
